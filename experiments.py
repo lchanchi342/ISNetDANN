@@ -85,7 +85,7 @@ class grid_race_mimic_12:
     def get_hparams(self):
         return combinations(self.hparams)
 
-#10 final independet runs with best hyperparameter seed
+#5 final independet runs with best hyperparameter seed
 class grid_race_mimic_final:
     fname = 'train'
 
@@ -100,7 +100,7 @@ class grid_race_mimic_final:
             'group_def': ['group'],
             'use_es': [True],
             'es_metric': ['overall:AUROC'],
-            'seed': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            'seed': [0, 1, 2, 3, 4, 5],
             "image_arch": ["densenet121"],
             "data_dir": ["/home/lchanch/initial_training/image_df"],
             "min_delta": [0.001],
@@ -209,7 +209,7 @@ class grid_race_ISNetDANN:
         return combinations(self.hparams)
 
 
-#10 final independet runs with best hyperparameter seed
+#5 final independet runs with best hyperparameter seed
 class grid_sex_ISNetDANN_final:
     fname = 'train'
 
@@ -223,7 +223,7 @@ class grid_sex_ISNetDANN_final:
             'group_def': ['group'],
             'use_es': [True],
             'es_metric': ['overall:AUROC'],
-            'seed': [6,7,8,9],
+            'seed': [0,1,,3,4,5],
             "epochs": [10],
             "image_arch": ["densenet121"],
             #"data_dir": ["/home/lchanch/initial_training/LRP/mask_recon/image_mask_reduced_df"],
