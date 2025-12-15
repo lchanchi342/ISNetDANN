@@ -180,6 +180,35 @@ class grid_sex_ISNetDANN:
     def get_hparams(self):
         return combinations(self.hparams)
 
+#main experiment grids, 12 hparams seeds
+class grid_race_ISNetDANN:
+    fname = 'train'
+
+    def __init__(self):
+        self.hparams = {
+            'dataset': ['MIMIC'],
+            'algorithm': ['ISNetDANN'],
+            'task': ['No Finding'],
+            'attr': ['race'],
+            'hparams_seed': [0,1], # y <- 1,2,3,4,5,6,7,8,9,10,11,0
+            'group_def': ['group'],
+            'use_es': [True],
+            'es_metric': ['overall:AUROC'],
+            'seed': [0, 1, 2],
+            "epochs": [10],
+            "image_arch": ["densenet121"],
+            #"data_dir": ["/home/lchanch/initial_training/LRP/mask_recon/image_mask_reduced_df"],
+            "data_dir": ["/home/lchanch/df_construction_mapping/image_mask_df"],
+            "min_delta": [0.001],
+            "checkpoint_freq": [1000],
+            "skip_model_save": [True],
+            'use_masks': [True],
+        }
+
+    def get_hparams(self):
+        return combinations(self.hparams)
+
+
 #5 final independet runs with best hyperparameter seed
 class grid_sex_ISNetDANN_final:
     fname = 'train'
@@ -194,7 +223,7 @@ class grid_sex_ISNetDANN_final:
             'group_def': ['group'],
             'use_es': [True],
             'es_metric': ['overall:AUROC'],
-            'seed': [0,1,2,3,4,5],
+            'seed': [0,1,,3,4,5],
             "epochs": [10],
             "image_arch": ["densenet121"],
             #"data_dir": ["/home/lchanch/initial_training/LRP/mask_recon/image_mask_reduced_df"],
