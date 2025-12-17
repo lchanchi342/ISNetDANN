@@ -268,11 +268,14 @@ if __name__ == "__main__":
     if args.resume:
         if os.path.isfile(args.resume):
             print(f"===> Loading checkpoint '{args.resume}'")
-            checkpoint = torch.load(args.resume)
-            start_step = checkpoint['start_step']
-            args.best_val_acc = checkpoint['best_val_acc']
+            #checkpoint = torch.load(args.resume)
+            checkpoint = torch.load(args.resume, map_location=device)
+            start_epoch = checkpoint["epoch"] + 1
+            start_step = checkpoint['step']
             algorithm.load_state_dict(checkpoint['model_dict'])
+            algorithm.optimizer.load_state_dict(checkpoint["optimizer_dict"])
             es = checkpoint['early_stopper']
+            print(f"===> Loaded checkpoint (epoch [{start_epoch}])")
             print(f"===> Loaded checkpoint '{args.resume}' (step [{start_step}])")
         else:
             print(f"===> No checkpoint found at '{args.resume}'")
@@ -453,12 +456,14 @@ if __name__ == "__main__":
                 save_dict = {
                     "args": vars(args),
                     "best_es_metric": es.best_score,
+                    "epoch": epoch,
                     "start_step": step + 1,
                     "num_labels": num_labels,
                     "num_attributes": train_dataset.num_attributes,
                     "model_input_shape": input_shape,
                     "model_hparams": hparams,
                     "model_dict": algorithm.state_dict(), # stores the model weights
+                    "optimizer_dict": algorithm.optimizer.state_dict(),
                     "early_stopper": es,
                 }
                 save_checkpoint(save_dict)
