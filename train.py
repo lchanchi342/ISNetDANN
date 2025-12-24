@@ -273,7 +273,7 @@ if __name__ == "__main__":
             start_epoch = checkpoint["epoch"] + 1
             start_step = checkpoint['step']
             algorithm.load_state_dict(checkpoint['model_dict'])
-            algorithm.optimizer.load_state_dict(checkpoint["optimizer_dict"])
+            #algorithm.optimizer.load_state_dict(checkpoint["optimizer_dict"])
             es = checkpoint['early_stopper']
             print(f"===> Loaded checkpoint (epoch [{start_epoch}])")
             print(f"===> Loaded checkpoint '{args.resume}' (step [{start_step}])")
@@ -463,7 +463,7 @@ if __name__ == "__main__":
                     "model_input_shape": input_shape,
                     "model_hparams": hparams,
                     "model_dict": algorithm.state_dict(), # stores the model weights
-                    "optimizer_dict": algorithm.optimizer.state_dict(),
+                    #"optimizer_dict": algorithm.optimizer.state_dict(),
                     "early_stopper": es,
                 }
                 save_checkpoint(save_dict)
